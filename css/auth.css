@@ -1,0 +1,67 @@
+body {
+  padding: 2em;
+}
+
+h1 {
+  font-family: Astron;
+  text-align: center;
+  font-size: 80px;
+  letter-spacing: 0.3em;
+  color: #B955C9;
+
+  margin-bottom: 2em;
+}
+
+
+form {
+  /* padding: 2em; */
+}
+
+.form-field {
+  border: none;
+  border-bottom: 3px solid white;
+  width: 14.675em;
+  background-color: rgba(0, 0, 0, 0);
+
+  font-family: Astron;
+  font-size: 40px;
+
+  color: white;
+
+  margin-bottom: 0.5em;
+
+}
+
+.desc {
+  font-family: Astron;
+  font-size: 20px;
+}
+
+.form-group {
+  margin-bottom: 1.5em;
+}
+
+
+.submit-btn {
+
+  margin-top: 2em;
+
+  background-color: rgba(0, 0, 0, 0);
+  color: rgb(251, 220, 99);
+
+  width: 10em;
+  heoght: 5em;
+
+  border: 5px solid white;
+  border-radius: 20px;
+
+  font-family: Astron_Bold;
+  font-size: 35px;
+  letter-spacing: 0.4em;
+
+}
+
+.submit-btn, .submit-btn:hover, .submit-btn:visited, .submit-btn:active {
+  color: rgb(251, 220, 99);
+  text-decoration: none;
+ }
