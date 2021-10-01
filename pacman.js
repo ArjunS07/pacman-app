@@ -71,7 +71,7 @@ Pacman.Ghost = function(game, map, colour) {
     };
 
     /* Collision detection(walls) is done when a ghost lands on an
-     * exact block, make sure they dont skip over it 
+     * exact block, make sure they dont skip over it
      */
     function addBounded(x1, x2) {
         var rem = x1 % 10,
@@ -323,7 +323,6 @@ Pacman.User = function(game, map) {
         if (score >= 10000 && score - nScore < 10000) {
             lives += 1;
         }
-        document.getElementById('score').innerHTML = "Score: " + score.toString()
     };
 
     function theScore() {
@@ -1044,7 +1043,6 @@ var PACMAN = (function() {
     function completedLevel() {
         setState(WAITING);
         level += 1;
-        document.getElementById('level').innerHTML = 'Level: ' + level.toString()
         map.reset();
         user.newLevel();
         startLevel();
