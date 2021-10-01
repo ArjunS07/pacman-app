@@ -1,21 +1,16 @@
 th {
   font-family: Astron;
-  font-size: 45px;
+  font-size: 25px;
   color: rgb(251, 220, 99);
 }
 
 td {
   font-family: Astron;
-  font-size: 30px;
+  font-size: 25px;
   color: white;
 }
 
-.center-page {
-    position: fixed; /* or absolute */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
+/*  */
 
 table, th, td {
   border: 0.1em solid white;
