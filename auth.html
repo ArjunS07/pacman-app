@@ -36,62 +36,124 @@
       <button class="submit-btn btn" onclick = "login()">
         <span> Submit </span>
       </button>
-<!--
+      <!--
       <button class="submit-btn btn" onclick = "login()">
-        <span href = "onboarding.html"> Submit </span>
-      </button> -->
+      <span href = "onboarding.html"> Submit </span>
+    </button> -->
 
-
-    </div>
 
   </div>
 
-  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
+</div>
 
-  <script>
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyC7N1x5fSRjlPI5NuVnx1osDkvrchE5HoA",
-    authDomain: "shri-teq-pac-man-48d1f.firebaseapp.com",
-    databaseURL: "https://shri-teq-pac-man-48d1f-default-rtdb.asia-southeast1.firebasedatabase.app/",
-    projectId: "shri-teq-pac-man-48d1f",
-    storageBucket: "shri-teq-pac-man-48d1f.appspot.com",
-    messagingSenderId: "375352094557",
-    appId: "1:375352094557:web:7ec64375d7412f24dec2b4",
-    measurementId: "G-Q70295JKHZ"
-  };
+<script>
 
-  firebase.initializeApp(firebaseConfig);
+const firebaseConfig = {
+  apiKey: "AIzaSyC7N1x5fSRjlPI5NuVnx1osDkvrchE5HoA",
+  authDomain: "shri-teq-pac-man-48d1f.firebaseapp.com",
+  databaseURL: "https://shri-teq-pac-man-48d1f-default-rtdb.asia-southeast1.firebasedatabase.app/",
+  projectId: "shri-teq-pac-man-48d1f",
+  storageBucket: "shri-teq-pac-man-48d1f.appspot.com",
+  messagingSenderId: "375352094557",
+  appId: "1:375352094557:web:7ec64375d7412f24dec2b4",
+  measurementId: "G-Q70295JKHZ"
+};
 
-  </script>
+firebase.initializeApp(firebaseConfig);
 
-  <script>
+</script>
 
-  const db = firebase.database();
+<script>
 
+const loggedIn = getCookie("loggedIn");
 
-    function login() {
-      const studentId = document.getElementById('studentid').value;
-      const userPass = document.getElementById('pass').value;
+if (loggedIn == "true") {
+  window.location.replace("play.html");
 
+} else {
+  (loggedIn);
+}
 
-      var ref = db.ref("houses");
-      ref.orderByChild("password").equalTo(userPass).on("child_added", function(snapshot) {
-        console.log(snapshot.key);
-        window.location.replace("play.html");
-
-      });
+const db = firebase.database();
 
 
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
     }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+
+
+
+
+function login() {
+  const studentId = document.getElementById('studentid').value.toLowerCase();
+  const userPass = document.getElementById('pass').value;
+  (userPass);
+
+
+  const houseRef = db.ref("houses");
+  const userRef = db.ref("users");
+  var passValid = false;
+  var userValid = false;
+
+
+  houseRef.orderByChild("password").equalTo(userPass).on("child_added", function(snapshot) {
+    passValid = true;
+    var house = snapshot.key
+    (snapshot.key)
+
+    userRef.orderByChild("id").equalTo(studentId).on("child_added", function(snapshot) {
+      userValid = true;
+      const userId = snapshot.val().id;
+      const userHouse = snapshot.val().house;
+      const key = snapshot.key;
+
+      if (!userHouse) {
+        ("house does not exist");
+        db.ref('users/' + String(key)).update({
+          house: house
+
+        });
+      }
+
+      document.cookie = "loggedIn=true";
+      document.cookie = "house=" + house;
+      document.cookie = "userId=" + userId;
+
+
+
+
+      window.location.replace("play.html");
+
+
+    });
+
+  });
+
+
+}
 
 
 
 
 
 
-  </script>
+</script>
 
 </body>
 

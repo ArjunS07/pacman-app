@@ -28,8 +28,8 @@
           <li>
             <a href = "leaderboard.html"> Leaderboard </a>
           </li>
-          <li>
-            <a href = "#"> Logout </a>
+          <li id = "logout">
+            <a href = "#" id = "logout"> Logout </a>
           </li>
 
         </ul>
@@ -42,7 +42,7 @@
     <div class = "container">
       <ol>
 
-        <li>EACH HOUSE HAS TO BLAH THE BLAH SO THAT THE BLAH MAY BLAH FOREVER AND SO ON AND SO FORTH</li>
+        <li> The </li>
         <li>EACH HOUSE HAS TO BLAH THE BLAH SO THAT THE BLAH MAY BLAH FOREVER AND SO ON AND SO FORTH</li>
         <li>EACH HOUSE HAS TO BLAH THE BLAH SO THAT THE BLAH MAY BLAH FOREVER AND SO ON AND SO FORTH</li>
         <li>EACH HOUSE HAS TO BLAH THE BLAH SO THAT THE BLAH MAY BLAH FOREVER AND SO ON AND SO FORTH</li>
@@ -53,6 +53,16 @@
     </div>
 
   </div>
+
+  <script>
+
+  document.getElementById('logout').addEventListener("click", function() {
+    document.cookie = "loggedIn=false";
+    window.location.replace("auth.html");
+
+  })
+
+  </script>
 
 
 

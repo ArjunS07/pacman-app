@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
-  <title>Rules</title>
+  <title>Leaderboard</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -28,9 +28,10 @@
           <li class = "nav-active">
             <a href = "leaderboard.html"> Leaderboard </a>
           </li>
-          <li>
-            <a href = "#"> Logout </a>
+          <li id = "logout">
+            <a href = "#" id = "logout"> Logout </a>
           </li>
+
 
         </ul>
       </nav>
@@ -54,37 +55,121 @@
               <tr>
                 <th>Rank</th>
                 <th>House</th>
-                <th>Level</th>
+                <th>Total Highscores</th>
               </tr>
 
               <tr>
-                <td> {{house_1_rank }} </td>
-                <td> {{house_1_name}} </td>
-                <td> {{house_1_level}} </td>
+                <td> 1 </td>
+                <td id = "house_1"></td>
+                <td id = "house_1_score"> </td>
               </tr>
 
               <tr>
-                <td> {{house_2_rank }} </td>
-                <td> {{house_2_name}} </td>
-                <td> {{house_2_level}} </td>
+                <td> 2 </td>
+                <td id = "house_2"></td>
+                <td id = "house_2_score"> </td>
               </tr>
 
               <tr>
-                <td> {{house_3_rank }} </td>
-                <td> {{house_3_name}} </td>
-                <td> {{house_3_level}} </td>
+                <td> 3 </td>
+                <td id = "house_3"></td>
+                <td id = "house_3_score"> </td>
               </tr>
 
               <tr>
-                <td> {{house_4_rank }} </td>
-                <td> {{house_4_name}} </td>
-                <td> {{house_4_level}} </td>
+                <td> 4 </td>
+                <td id = "house_4"></td>
+                <td id = "house_4_score"> </td>
               </tr>
 
 
 
             </table>
 
+            <br/>
+            <br/>
+            <br/>
+
+            <table>
+
+              <tr>
+                <th>Rank</th>
+                <th>Player</th>
+                <th>House</th>
+                <th>Highscore</th>
+              </tr>
+
+              <tr>
+                <td> 1 </td>
+                <td id = "player_1"></td>
+                <td id = "player_1_house"> </td>
+                <td id = "player_1_score"> </td>
+              </tr>
+
+              <tr>
+                <td> 2 </td>
+                <td id = "player_2"></td>
+                <td id = "player_2_house"> </td>
+                <td id = "player_2_score"> </td>
+              </tr>
+
+              <tr>
+                <td> 3 </td>
+                <td id = "player_3"></td>
+                <td id = "player_3_house"> </td>
+                <td id = "player_3_score"> </td>
+              </tr>
+
+              <tr>
+                <td> 4 </td>
+                <td id = "player_4"></td>
+                <td id = "player_4_house"> </td>
+                <td id = "player_4_score"> </td>
+              </tr>
+
+              <tr>
+                <td> 5 </td>
+                <td id = "player_5"></td>
+                <td id = "player_5_house"> </td>
+                <td id = "player_5_score"> </td>
+              </tr>
+
+              <tr>
+                <td> 6 </td>
+                <td id = "player_6"></td>
+                <td id = "player_6_house"> </td>
+                <td id = "player_6_score"> </td>
+              </tr>
+
+              <tr>
+                <td> 7 </td>
+                <td id = "player_7"></td>
+                <td id = "player_7_house"> </td>
+                <td id = "player_7_score"> </td>
+              </tr>
+
+              <tr>
+                <td> 8 </td>
+                <td id = "player_8"></td>
+                <td id = "player_8_house"> </td>
+                <td id = "player_8_score"> </td>
+              </tr>
+
+              <tr>
+                <td> 9 </td>
+                <td id = "player_9"></td>
+                <td id = "player_9_house"> </td>
+                <td id = "player_9_score"> </td>
+              </tr>
+
+              <tr>
+                <td> 10 </td>
+                <td id = "player_10"></td>
+                <td id = "player_10_house"> </td>
+                <td id = "player_10_score"> </td>
+              </tr>
+
+            </table>
 
           </div>
         </div>
@@ -95,11 +180,82 @@
 
 
 
-
-
   </div>
 
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
 
+  <script>
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyC7N1x5fSRjlPI5NuVnx1osDkvrchE5HoA",
+    authDomain: "shri-teq-pac-man-48d1f.firebaseapp.com",
+    databaseURL: "https://shri-teq-pac-man-48d1f-default-rtdb.asia-southeast1.firebasedatabase.app/",
+    projectId: "shri-teq-pac-man-48d1f",
+    storageBucket: "shri-teq-pac-man-48d1f.appspot.com",
+    messagingSenderId: "375352094557",
+    appId: "1:375352094557:web:7ec64375d7412f24dec2b4",
+    measurementId: "G-Q70295JKHZ"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+
+  </script>
+
+  <script>
+
+  document.getElementById('logout').addEventListener("click", function() {
+    document.cookie = "loggedIn=false";
+    window.location.replace("auth.html");
+
+  })
+
+  const db = firebase.database();
+
+  var i = 4;
+  db.ref("houses").orderByChild("score").on("child_added", function(snapshot) {
+    const name = snapshot.key;
+    const score = snapshot.val().score;
+    (i);
+
+
+    const nameID = 'house_' + String(i);
+    const scoreID = 'house_' + String(i) + '_score';
+
+    document.getElementById(nameID).innerHTML = name;
+    document.getElementById(scoreID).innerHTML = score;
+
+    // firebase returns in ascending
+    i -= 1;
+  })
+
+  k = 10;
+
+  db.ref("users").orderByChild("highscore").limitToLast(10).on("child_added", function(snapshot) {
+
+    const name = snapshot.val().id;
+    const house = snapshot.val().house;
+    const score = snapshot.val().highscore;
+
+    if (house) {
+      const nameID = 'player_' + String(k);
+      const houseID = 'player_' + String(k) + '_house';
+      const scoreID = 'player_' + String(k) + '_score';
+
+      document.getElementById(nameID).innerHTML = name;
+      document.getElementById(houseID).innerHTML = house;
+      document.getElementById(scoreID).innerHTML = score;
+    }
+
+
+
+    k -= 1;
+
+  })
+
+
+
+  </script>
 
 </body>
 </html>
