@@ -18,7 +18,7 @@
       <form>
 
         <div class = "form-group">
-          <input type="email" placeholder="School Student ID" class = "form-field">
+          <input type="text" placeholder="School Student ID" class = "form-field" id = "studentid">
           <p class = "desc"> firstname.lastname + admission number
             <br/>
             eg: john.doe1234
@@ -26,21 +26,73 @@
         </div>
 
         <div class="form-group">
-          <input type="password" id="pasword" placeholder="Password" class = "form-field">
+          <input type="password" placeholder="Password" class = "form-field" id = "pass">
 
           <p class = "desc"> ASK YOUR HOUSE CAPTAIN FOR YOUR PASSWORD </p>
         </div>
 
       </form>
 
-      <button class="submit-btn btn">
-        <span href = "onboarding.html"> Submit </span>
+      <button class="submit-btn btn" onclick = "login()">
+        <span> Submit </span>
       </button>
+<!--
+      <button class="submit-btn btn" onclick = "login()">
+        <span href = "onboarding.html"> Submit </span>
+      </button> -->
 
 
     </div>
 
   </div>
 
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
+
+  <script>
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyC7N1x5fSRjlPI5NuVnx1osDkvrchE5HoA",
+    authDomain: "shri-teq-pac-man-48d1f.firebaseapp.com",
+    databaseURL: "https://shri-teq-pac-man-48d1f-default-rtdb.asia-southeast1.firebasedatabase.app/",
+    projectId: "shri-teq-pac-man-48d1f",
+    storageBucket: "shri-teq-pac-man-48d1f.appspot.com",
+    messagingSenderId: "375352094557",
+    appId: "1:375352094557:web:7ec64375d7412f24dec2b4",
+    measurementId: "G-Q70295JKHZ"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+
+  </script>
+
+  <script>
+
+  const db = firebase.database();
+
+
+    function login() {
+      const studentId = document.getElementById('studentid').value;
+      const userPass = document.getElementById('pass').value;
+
+
+      var ref = db.ref("houses");
+      ref.orderByChild("password").equalTo(userPass).on("child_added", function(snapshot) {
+        console.log(snapshot.key);
+        window.location.replace("play.html");
+
+      });
+
+
+    }
+
+
+
+
+
+
+  </script>
+
 </body>
+
 </html>
