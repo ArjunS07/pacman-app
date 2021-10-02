@@ -210,6 +210,12 @@
 
   })
 
+
+  const loggedIn = getCookie("loggedIn");
+  if (loggedIn = "false" || !loggedIn) {
+    window.location.replace("auth.html");
+  }
+
   const db = firebase.database();
 
   var i = 4;

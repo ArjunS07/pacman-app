@@ -60,6 +60,11 @@
     document.cookie = "loggedIn=false";
     window.location.replace("auth.html");
 
+    const loggedIn = getCookie("loggedIn");
+    if (loggedIn = "false" || !loggedIn) {
+      window.location.replace("auth.html");
+    }
+
   })
 
   </script>
