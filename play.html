@@ -123,6 +123,21 @@
     const db = firebase.database();
     console.log(db);
 
+    db.ref('users/0').set({
+      highscore: 100
+    });
+
+    ref = db.ref('users/0/highscore');
+    ref.on('value', (snapshot) => {
+      const data = snapshot.val();
+      console.log(data);
+    })
+
+    db.ref('users/0').set({
+      id: "arjun.sharma6131",
+      highscore: 5000
+    });
+
     ref = db.ref('users/0/highscore');
     ref.on('value', (snapshot) => {
       const data = snapshot.val();
