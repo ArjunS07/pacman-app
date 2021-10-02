@@ -216,7 +216,6 @@
   db.ref("houses").orderByChild("score").on("child_added", function(snapshot) {
     const name = snapshot.key;
     const score = snapshot.val().score;
-    (i);
 
 
     const nameID = 'house_' + String(i);
