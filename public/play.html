@@ -36,15 +36,15 @@
   a { text-decoration:none; }
 
   #stats {
-    position: absolute;
-    top: 80%;
-    bottom: 5%;
+    position:fixed;
+    z-index:1000;
+    right: 0,
     text-align: center;
     width: 100%;
     font-family: Astron_Light;
     font-size: 20px;
     line-height: 1.5em;
-    margin-bottom: 1em;
+    margin-left: 1.5em;
   }
   </style>
 
@@ -156,8 +156,8 @@
 
     const loggedIn = getCookie("loggedIn");
     if (loggedIn == "false" || !loggedIn) {
-      window.location.replace("auth.html");
-    }
+      window.location.replace("auth.html")
+    };
 
     const house = getCookie("house");
     document.getElementById('house').innerHTML = "House: " + house;
