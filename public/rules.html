@@ -77,11 +77,11 @@
 
   document.getElementById('logout').addEventListener("click", function() {
     document.cookie = "loggedIn=false";
-    window.location.replace("auth.html");
+    window.location.replace("index.html");
 
     const loggedIn = getCookie("loggedIn");
     if (loggedIn == "false" || !loggedIn) {
-      window.location.replace("auth.html");
+      window.location.replace("index.html");
     }
 
   })

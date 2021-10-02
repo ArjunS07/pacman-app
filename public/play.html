@@ -157,7 +157,7 @@
 
     const loggedIn = getCookie("loggedIn");
     if (loggedIn == "false" || !loggedIn) {
-      window.location.replace("auth.html")
+      window.location.replace("index.html")
     };
 
     const house = getCookie("house");
@@ -176,7 +176,7 @@
       document.cookie = "loggedIn=false";
       document.cookie = "house=None";
       document.cookie = "usedId=None";
-      window.location.replace("auth.html");
+      window.location.replace("index.html");
 
     })
 
