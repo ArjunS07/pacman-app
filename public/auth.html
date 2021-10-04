@@ -110,63 +110,62 @@ function login() {
   const houseRef = db.ref("houses");
   const userRef = db.ref("users");
   var passValid = false;
-  var userValid = true;
+  var userValid = false;
 
 
+  houseRef.orderByChild("password")
+  .equalTo(userPass)
+  .once("value")
+  .then(function(houseSnapshot) {
+    if (houseSnapshot.exists()) {
 
- const query = houseRef.orderByChild("password").equalTo(userPass)
+      passValid = true;
+      const housename = houseSnapshot.key;
 
- query.on("child_added", function(snapshot) {
+      userRef.orderByChild("id")
+      .equalTo(studentId)
+      .once("value")
+      .then(function(userSnapshot) {
 
-     passValid = true;
-     var house = snapshot.key
+        if (userSnapshot.exists()) {
+          userValid = true;
+          console.log(userSnapshot);
+          const userId = userSnapshot.val().id;
+          const userHouse = userSnapshot.val().house;
+          const key = userSnapshot.key;
 
-     userValid = false;
+          if (!userHouse) {
+            db.ref('users/' + String(key)).update({
+              house: housename
 
-     userRef.orderByChild("id").equalTo(studentId).on("child_added", function(snapshot) {
-       userValid = true;
-       const userId = snapshot.val().id;
-       const userHouse = snapshot.val().house;
-       const key = snapshot.key;
+            })
+          }
 
-       if (!userHouse) {
-         db.ref('users/' + String(key)).update({
-           house: house
-
-         });
-       }
-
-       document.cookie = "loggedIn=true";
-       document.cookie = "house=" + house;
-       document.cookie = "userId=" + userId;
-
-
-       window.location.replace("play.html");
-
-
-     });
-
+          document.cookie = "loggedIn=true";
+          document.cookie = "house=" + housename;
+          document.cookie = "userId=" + userId;
 
 
-  });
+          window.location.replace("play.html");
+        } else {
 
-  setTimeout(()=>{
-    if (!userValid && passValid) {
-      swal("Incorrect username", "Make sure your username is in a valid format, firstname.lastname followed by admission number. For example, arjun.sharma6131. \n\nIf there continues to be an issue, contact adadarohan@gmail.com or 84488 14006 on WhatsApp")
-    } else if (userValid && !passValid) {
-      swal("Incorrect password", "Make sure you have obtained the correct password from your house captain. \n\nIf there continues to be an issue, contact adadarohan@gmail.com or 84488 14006 on WhatsApp")
-    } else if (!userValid && !passValid) {
-      swal("Incorrect username and password", "\nMake sure your username is in a valid format, firstname.lastname followed by admission number. For example, arjun.sharma6131.\n\n Make sure you have obtained the correct password from your house captain. \n\nIf there continues to be an issue, contact adadarohan@gmail.com or 84488 14006 on WhatsApp")
+          userValid = false;
+
+        }
+
+      })
+    } else {
+      passValid = false;
     }
+  })
 
+  if (!passValid || !userValid ) {
+    swal("Incorrect username or password", "\nMake sure your username is in a valid format, firstname.lastname followed by admission number. For example, rohan.kapur1234.\n\n Make sure you have obtained the correct password from your house captain. \n\nIf there continues to be an issue, contact adadarohan@gmail.com or 84488 14006 on WhatsApp");
+  } else {
+    swal("Server error", "\nContact adadarohan@gmail.com or 84488 14006 on WhatsApp");
 
-  },3000);
-
+  }
 }
-
-
-
-
 
 
 </script>
