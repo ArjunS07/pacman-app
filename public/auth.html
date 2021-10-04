@@ -112,6 +112,7 @@ function login() {
   var passValid = false;
   var userValid = false;
 
+<<<<<<< HEAD
   var userHouseNewName = "";
 
   db.ref("houses").orderByChild("password").equalTo(userPass).once("value", function(houseSnapshot) {
@@ -165,6 +166,61 @@ function login() {
       }
     })
   })
+=======
+
+  houseRef.orderByChild("password")
+  .equalTo(userPass)
+  .once("value")
+  .then(function(houseSnapshot) {
+    if (houseSnapshot.exists()) {
+
+      passValid = true;
+      const housename = houseSnapshot.key;
+
+      userRef.orderByChild("id")
+      .equalTo(studentId)
+      .once("value")
+      .then(function(userSnapshot) {
+
+        if (userSnapshot.exists()) {
+          userValid = true;
+          console.log(userSnapshot);
+          const userId = userSnapshot.val().id;
+          const userHouse = userSnapshot.val().house;
+          const key = userSnapshot.key;
+
+          if (!userHouse) {
+            db.ref('users/' + String(key)).update({
+              house: housename
+
+            })
+          }
+
+          document.cookie = "loggedIn=true";
+          document.cookie = "house=" + housename;
+          document.cookie = "userId=" + userId;
+
+
+          window.location.replace("play.html");
+        } else {
+
+          userValid = false;
+
+        }
+
+      })
+    } else {
+      passValid = false;
+    }
+  })
+
+  if (!passValid || !userValid ) {
+    swal("Incorrect username or password", "\nMake sure your username is in a valid format, firstname.lastname followed by admission number. For example, rohan.kapur1234.\n\n Make sure you have obtained the correct password from your house captain. \n\nIf there continues to be an issue, contact adadarohan@gmail.com or 84488 14006 on WhatsApp");
+  } else {
+    swal("Server error", "\nContact adadarohan@gmail.com or 84488 14006 on WhatsApp");
+
+  }
+>>>>>>> 9387b161b1c3f5fff53d3d07861f7f00b24866ee
 }
 
 
